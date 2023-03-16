@@ -7,12 +7,12 @@ class Player:
 
 def dice_roll(Player):
     roll = random.randint(1,6)
-    print(f"{Player.name} rolled a {roll}")
+    # print(f"{Player.name} rolled a {roll}")
 
     return int(roll)
 
 def play_or_stay(Player):
-    choice = input(f"{Player.name}, enter 'r' to roll or 'h' to hold: ")
+    choice = input(f"  Enter 'r' to roll or 'h' to hold: ")
     while choice not in ['r', 'h']:
         print("Invalid input. Please enter 'r' to roll or 'h' to hold.")
         choice = input(f"{Player.name}, enter 'r' to roll or 'h' to hold: ")
@@ -21,26 +21,27 @@ def play_or_stay(Player):
 
 
 if __name__ == "__main__":
-    counter = 0
     player1 = Player("Player 1")
     player2 = Player("Player 2")
-    score_p1 = player1.score
-    score_p2 = player2.score
+    winner = False
 
-    while counter <= 3:
+    while not winner:
+        for player in [player1, player2]:
+            print(f"{player.name}'s turn")
+            while True:
+                choice = play_or_stay(player)
+                if choice == 'h':
+                    break
+                roll = dice_roll(player)
+                if roll == 1:
+                    print(f"    {player.name} rolled a 1 and now they\'re done")
+                    break
+                player.score += roll
+                print(f"    You rolled {roll}. Player 1 score: {player1.score} Player 2 score: {player2.score}")
+                if player.score >= 30:
+                    winner = True
+                    print(f"{player.name} is the winner!")
+                    break
+            if winner:
+                break
 
-        choice_p1 = play_or_stay(player1)
-
-        roll_p1 = dice_roll(player1)
-        score_p1 += roll_p1
-        print(f"{player1.name} chose: {choice_p1}")
-        print(f'{player1.name} score is now {score_p1}')
-
-
-        choice_p2 = play_or_stay(player2)
-
-        roll_p2 = dice_roll(player2)
-        print(f"{player2.name} chose: {choice_p2}")
-
-        counter += 1
-        print(f'counter = {counter}')
