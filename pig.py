@@ -24,6 +24,7 @@ def play_or_stay(Player):
     return choice
 
 if __name__ == "__main__":
+    random.seed(0)
     players = [Player(f"Player {i}") for i in range(1, args.numPlayer+1)]
     winning_score = 100
     winner = False
