@@ -33,9 +33,7 @@ if __name__ == "__main__":
             print(f"{player.name}'s turn")
             player.turn_score = 0
             while True:
-
                 choice = play_or_stay(player)
-
                 if choice == 'h':
                     player.score += player.turn_score
                     if player.score >= winning_score:
