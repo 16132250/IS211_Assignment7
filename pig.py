@@ -1,4 +1,9 @@
 import random
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--numPlayer", type=int, default=2)
+args = parser.parse_args()
 
 class Player:
     def __init__(self, name):
@@ -9,7 +14,6 @@ class Player:
 def dice_roll(Player):
     roll = random.randint(1,6)
     # print(f"{Player.name} rolled a {roll}")
-
     return int(roll)
 
 def play_or_stay(Player):
@@ -20,12 +24,12 @@ def play_or_stay(Player):
     return choice
 
 if __name__ == "__main__":
-    player1 = Player("Player 1")
-    player2 = Player("Player 2")
+    players = [Player(f"Player {i}") for i in range(1, args.numPlayer+1)]
+    winning_score = 100
     winner = False
 
     while not winner:
-        for player in [player1, player2]:
+        for player in players:
             print(f"{player.name}'s turn")
             player.turn_score = 0
             while True:
@@ -34,7 +38,7 @@ if __name__ == "__main__":
 
                 if choice == 'h':
                     player.score += player.turn_score
-                    if player.score >= 20:
+                    if player.score >= winning_score:
                         winner = True
                         print(f"{player.name} is the winner!")
                     break
@@ -48,7 +52,7 @@ if __name__ == "__main__":
                     # player.score += roll
                     print(f"    You rolled {roll}. {player.name} score: [{player.score}] "
                           f"Turn score: [{player.turn_score}]")
-                    if player.score + player.turn_score >= 20:
+                    if player.score + player.turn_score >= winning_score:
                         winner = True
                         print(f"{player.name} is the winner!")
                         break
